@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomagotchi - Pomodoro Tamagotchi</title>
+    <script type="module" src="/main.js" defer></script>
+  </head>
+
+  <body class="bg-zinc-800 min-h-screen">
+    <!-- Notification Area -->
+    <div id="notification" class="notification-container"></div>
+    
+    <div class="container mx-auto px-4 py-8 pt-12 sm:pt-8">
+      <h1 class="text-4xl font-bold text-center text-gray-100 mb-8 flex items-center justify-center gap-3">
+        <img src="icon.png" alt="Pomagotchi" class="w-12 h-12" />
+        Pomagotchi
+      </h1>
+      
+      <!-- Timer Section -->
+      <div class="bg-zinc-700 rounded-lg shadow-lg shadow-emerald-600/10 p-8 mb-8 text-center border border-zinc-600">
+        <div class="timer-display mb-6" id="timer-display">25:00</div>
+        
+        <!-- Preset Time Buttons -->
+        <div class="flex justify-center gap-4 mb-6 preset-buttons">
+          <button class="preset-button" data-seconds="2">2s</button>
+          <button class="preset-button" data-minutes="5">5m</button>
+          <button class="preset-button" data-minutes="10">10m</button>
+          <button class="preset-button" data-minutes="15">15m</button>
+          <button class="preset-button" data-minutes="25">25m</button>
+        </div>
+        
+        <!-- Control Buttons -->
+        <div class="flex justify-center gap-4 control-buttons">
+          <button class="control-button start-button" id="start-btn">Start</button>
+          <button class="control-button pause-button" id="pause-btn" disabled>Pause</button>
+          <button class="control-button reset-button" id="reset-btn">Reset</button>
+          <button class="control-button complete-button" id="complete-btn" disabled>End Early</button>
+        </div>
+      </div>
+      
+      <!-- Creature Section -->
+      <div class="bg-zinc-700 rounded-lg shadow-lg shadow-emerald-600/10 p-8 text-center border border-zinc-600 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-100 mb-4">Your Pomagotchi</h2>
+        <div class="creature-area mb-4" id="creature-display">
+          <div class="text-6xl">🥚</div>
+        </div>
+        <div class="text-gray-300">
+          <div class="mb-2">Level: <span id="creature-level" class="font-semibold text-emerald-400">1</span></div>
+          <div class="mb-2">XP: <span id="creature-xp" class="font-semibold text-emerald-400">0</span> / <span id="xp-needed" class="font-semibold text-emerald-400">100</span></div>
+          <div class="w-full bg-zinc-600 rounded-full h-2">
+            <div class="bg-emerald-500 h-2 rounded-full transition-all duration-300 shadow-lg shadow-emerald-600/25" id="xp-progress" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Section -->
+      <div class="bg-zinc-700 rounded-lg shadow-lg shadow-emerald-600/10 p-8 text-center border border-zinc-600 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-100 mb-4">Progress</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-gray-300">
+          <div class="bg-zinc-600 rounded-lg p-4">
+            <div class="text-2xl font-bold text-emerald-400" id="total-pomodoros">0</div>
+            <div class="text-sm">Pomodoros</div>
+          </div>
+          <div class="bg-zinc-600 rounded-lg p-4">
+            <div class="text-2xl font-bold text-emerald-400" id="total-xp">0</div>
+            <div class="text-sm">Total XP</div>
+          </div>
+          <div class="bg-zinc-600 rounded-lg p-4">
+            <div class="text-2xl font-bold text-emerald-400" id="current-streak">0</div>
+            <div class="text-sm">Day Streak</div>
+          </div>
+          <div class="bg-zinc-600 rounded-lg p-4">
+            <div class="text-2xl font-bold text-emerald-400" id="study-time">0h</div>
+            <div class="text-sm">Study Time</div>
+          </div>
+        </div>
+        <button class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm" onclick="resetAllData()">
+          Reset All Data
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

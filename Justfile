@@ -1,0 +1,51 @@
+# List available commands
+default:
+    @just --list
+
+# Run Tauri development server
+dev:
+    cargo tauri dev
+
+# Run Tauri Android development
+android:
+    ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL=1 cargo tauri android dev
+
+# Clean existing android structure in case names or package changed
+android-clean:
+	rm -rf src-tauri/gen/android
+
+android-rebuild:
+    rm -rf src-tauri/gen/android
+    cargo tauri android init
+    @just icon
+
+# Build and run Tauri in release mode (desktop)
+run:
+    cargo tauri build --no-bundle && ./src-tauri/target/release/app
+
+# Build and run Tauri Android in release mode
+apk:
+    # or --apk for production
+    cargo tauri android build --debug
+
+# Deploy debug build to android phone over USB
+apk-install:
+    adb install -r src-tauri/gen/android/app/build/outputs/apk/universal/debug/app-universal-debug.apk
+
+# Build and Deploy debug build to android phone over USB
+debug:
+    cargo tauri android build --debug
+    adb install -r src-tauri/gen/android/app/build/outputs/apk/universal/debug/app-universal-debug.apk
+
+# Run tests
+test:
+    # This project will be in src-tauri/Cargo.toml under [package]
+    cargo test -p app
+
+# Coverage
+cov:
+    cargo llvm-cov --html --open -p app
+
+# Icon generation for all platforms
+icon:
+    cargo tauri icon ./icon.png

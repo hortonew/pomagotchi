@@ -1,6 +1,8 @@
 # Pomagotchi
 
-A Pomodoro + Tamagotchi productivity application that gamifies focus time by letting you grow and evolve a virtual creature through completed Pomodoro sessions.
+A Pomodoro + creature raising productivity application that gamifies focus time by letting you grow and evolve a virtual creature through completed Pomodoro sessions.
+
+![Pomagotchi](./images/main.png)
 
 ## Tech Stack
 
@@ -63,8 +65,16 @@ Possible, but not yet configured.
 
 - `src/` - Frontend (HTML, CSS, JS)
 - `src-tauri/src/` - Rust backend
-  - `lib.rs` - Main library file with Tauri commands and state management
-  - `main.rs` - Application entry point
+  - `lib.rs` - Thin orchestrator: wires modules & registers Tauri commands
+  - `state.rs` - Core domain data structures (`CreatureState`, `TimerState`, `GameProgress`, `GameState`) and evolution logic
+  - `app_state.rs` - Persisted application state wrapper (`AppState`) + disk I/O + date helper
+  - `commands/` - Grouped Tauri command modules (separation by concern)
+    - `creature.rs` - Creature CRUD & XP gain endpoints
+    - `progress.rs` - Pomodoro completion logic & streak tracking
+    - `timer.rs` - Timer state getters/setters (debounced persistence)
+    - `game.rs` - Whole-game load/save/reset endpoints
+    - `mod.rs` - Re-exports for command registration
+  - `main.rs` - Application entry point (binary target for Tauri)
 
 ## How It Works
 
